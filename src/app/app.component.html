@@ -1,0 +1,41 @@
+<main class="container">
+
+  <!-- Input pour charger un fichier JSON -->
+  <input 
+    type="file" 
+    accept=".json" 
+    (change)="onFileSelected($event)" 
+    class="file-input" />
+
+  <!-- Liste affichée seulement si des éléments sont disponibles -->
+  <div *ngIf="elements.length > 0" class="result-card">
+    <div class="scrollable-list">
+      <ul class="main-list">
+        <li *ngFor="let element of elements" class="main-item">
+          <!-- Élément principal -->
+          <div>
+            <h2>{{ element.name }}</h2>
+          </div>
+
+          <!-- Liste imbriquée pour les sous-éléments -->
+          <ul class="nested-list">
+            <li *ngFor="let step of element.elements" class="nested-item">
+              <div class="step-details">
+                <span class="step-name">{{ step.name }}</span>
+                <span class="step-status" [ngClass]="{ success: step.status === 'success', error: step.status === 'error' }">
+                  {{ step.status }}
+                </span>
+              </div>
+              <button 
+                class="generate-issue-button" 
+                (click)="onGenerateGitLabIssue(step)">
+                Générer issue GitLab
+              </button>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</main>
