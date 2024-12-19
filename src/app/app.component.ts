@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+
+import Database, { QueryResult } from '@tauri-apps/plugin-sql';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -9,15 +11,25 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-
-  elements:any[]=[];
-
-  onAddStep(step: any): void {
-    console.log('Ajout de l’étape :', step);
-    // Implémente la logique pour ajouter ou traiter l'étape ici
+  elements: any[] = [];
+  constructor(){
+    this.init();
   }
 
-  onGenerateGitLabIssue(step: any): void {}
+  async init(){
+    const db = await Database.load('sqlite:mydatabase.db');
+    const reesult = await db.execute("INSERT into users (id, name) VALUES ($1, $2);",[1,"tutu"]);
+    console.log(reesult);
+  }
+  // Méthode pour basculer l'état de collapse d'un élément
+  toggleCollapse(element: any): void {
+    element.collapsed = !element.collapsed; // Inverse l'état
+  }
+
+  onGenerateGitLabIssue(step: any): void {
+    console.log('Génération issue pour :', step);
+  }
+
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) {
@@ -33,21 +45,23 @@ export class AppComponent {
 
     const reader = new FileReader();
 
-    // Lire le fichier en tant que texte
     reader.onload = (e) => {
       try {
         this.elements = JSON.parse(e.target?.result as string);
-        this.elements.forEach((element:any) => {
-           element.elements.forEach((e:any)=> {
-            e.status = e.steps.some( (s: any)=> s.result.status === "failed")? "failed" : "ok";
-          })
+
+        this.elements.forEach((element: any) => {
+          element.collapsed = false; // Initialiser à "non-collapsé"
+          element.elements.forEach((e: any) => {
+            e.status = e.steps.some((s: any) => s.result.status === 'failed')
+              ? 'failed'
+              : 'ok';
+          });
         });
       } catch (error) {
         console.error('Erreur lors de l’analyse du fichier JSON :', error);
       }
     };
 
-    // Lire le fichier
     reader.readAsText(file);
   }
 }

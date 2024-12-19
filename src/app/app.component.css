@@ -20,7 +20,9 @@
   max-height: 60vh;
   overflow-y: auto;
 }
-
+.main-header:hover{
+  background-color: #f3f2f2;
+}
 .main-list {
   list-style: none;
   padding: 0;
@@ -67,16 +69,12 @@ h2 {
   text-transform: uppercase;
 }
 
-.step-status.success {
-  color: green;
+.button-groups{
+  display: flex;
+  gap: 5px;
 }
-
-.step-status.error {
-  color: red;
-}
-
 .generate-issue-button {
-  background-color: #28a745;
+  background-color: #2196F3;
   color: white;
   border: none;
   border-radius: 5px;
@@ -88,7 +86,7 @@ h2 {
 }
 
 .generate-issue-button:hover {
-  background-color: #218838;
+  background-color: #1976D2 ;
 }
 
 .generate-issue-button:focus {
