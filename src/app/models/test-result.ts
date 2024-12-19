@@ -10,4 +10,5 @@ export interface TestResult {
     video:string;
     expected: string;
     result: string;
+    date: Date
 }
