@@ -1,0 +1,14 @@
+<main class="container">
+    <input 
+      type="file" 
+      accept=".json" 
+      (change)="onFileSelected($event)" 
+      class="file-input" />
+    <div *ngIf="this.elements">
+        <ul>
+            <li *ngFor="let element of elements"> {{element.id}}</li>
+        </ul>
+    </div>
+
+  </main>
+  

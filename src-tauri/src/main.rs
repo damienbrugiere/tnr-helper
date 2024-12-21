@@ -2,7 +2,6 @@ use tauri_plugin_sql::{Migration, MigrationKind};
 
 fn main() {
     let migrations = vec![
-        // Définir vos migrations ici
         Migration {
             version: 1,
             description: "create_initial_tables",
@@ -13,13 +12,13 @@ fn main() {
                     scenario_name TEXT NOT NULL,
                     error_message TEXT,
                     uri TEXT NOT NULL,
-                    flaky INTEGER NOT NULL,  -- 0 (faux) ou 1 (vrai)
+                    flaky INTEGER NOT NULL,
                     gitlab_issue_id TEXT,
                     gitlab_project_id TEXT,
                     video TEXT,
                     expected TEXT,
                     result TEXT,
-                    date INTEGER NOT NULL -- Timestamp
+                    date INTEGER NOT NULL
                 );
             ",
             kind: MigrationKind::Up,
