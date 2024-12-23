@@ -1,0 +1,8 @@
+<div class="element" *ngIf="result">
+    <ui-checkbox [(ngModel)]="checked" [label]="result.scenarioName"></ui-checkbox>
+    <span *ngIf="checked === true && result.gitlabIssueId"> {{result.gitlabIssueId}} </span>
+    <div class="btn-grp" *ngIf="checked === false">
+        <ui-button label="Flaky" type="flaky" (click)="flaky()"></ui-button>
+        <ui-button label="Issue" type="bug" (click)="issue()"></ui-button>
+    </div>
+</div>

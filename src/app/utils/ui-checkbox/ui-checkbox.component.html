@@ -1,0 +1,10 @@
+<div class="checklist">
+    <input
+      type="checkbox"
+      [disabled]="disabled"
+      [checked]="checked"
+      (change)="onCheckboxChange($event)"
+      id="checkbox"
+    />
+    <label [class.disabled]="disabled" for="checkbox">{{ label }}</label>
+  </div>

@@ -24,15 +24,46 @@ export class DbService {
     this.db?.close();
   }
 
-  async get(query: string, ...params: any): Promise<unknown> {
-    // Utilisation d'une promesse pour attendre l'initialisation avant de lancer la requête
+  async get<T extends Record<string, any>>(query: string, ...params: any[]): Promise<T[]> {
+    // Attendre l'initialisation avant la requête
     if (!this.isInitialized) {
       await this.init();
     }
-    const result = params === undefined ? this.db?.select(query) : this.db?.select(query, params);
-    return result === undefined ? [] : result;
+
+    const result: T[] | undefined = params.length === 0 
+      ? await this.db?.select(query) 
+      : await this.db?.select(query, params);
+
+    if (!result) {
+      return [];
+    }
+
+    // Transformer les résultats en camelCase avec une fonction fléchée pour lier le contexte
+    return result.map((item) => this.mapToCamelCase(item)) as T[];
   }
 
+  /**
+   * Convertit un objet contenant des clés en snake_case vers un objet avec des clés en camelCase.
+   */
+  private mapToCamelCase<T extends Record<string, any>>(data: T): T {
+    const transformed: Record<string, any> = {};
+
+    for (const key in data) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        const camelKey = this.snakeToCamel(key);
+        transformed[camelKey] = data[key];
+      }
+    }
+
+    return transformed as T;
+  }
+
+  /**
+   * Convertit une chaîne snake_case en camelCase.
+   */
+  private snakeToCamel(snake: string): string {
+    return snake.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+  }
   async create(testResult: TestResult) {
     // Assurez-vous que la base est initialisée avant d'ajouter un résultat
     if (!this.isInitialized) {

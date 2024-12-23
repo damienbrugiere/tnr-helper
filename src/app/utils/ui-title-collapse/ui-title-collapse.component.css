@@ -1,0 +1,31 @@
+.btn{
+    border-radius: 50%;
+}
+.icon {
+    display: block;
+    width: 20px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.bug {    
+    background-image: url("/assets/icons/gitlab-brands-solid.svg");
+    background-size: contain;
+}
+
+.flaky { /* Ajout du préfixe .icon pour éviter les conflits */
+    background-image: url("/assets/icons/tag-solid.svg");
+    background-size: contain; /* Assure que l'image s'ajuste */
+}
+
+.element{
+    display: flex;
+    align-items: center;
+    height: 60px;
+    justify-content: space-between;
+}
+
+.btn-grp{
+    display: flex;
+    gap: 5px;
+}

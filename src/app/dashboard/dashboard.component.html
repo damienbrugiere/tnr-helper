@@ -1,3 +1,5 @@
-<div>
-    {{result | json}}
-</div>
+<ng-container *ngIf="results">
+    <ui-list [results]="results">
+
+    </ui-list>
+</ng-container>
