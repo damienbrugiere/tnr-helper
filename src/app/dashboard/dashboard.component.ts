@@ -21,10 +21,6 @@ export class DashboardComponent {
       this.db.get<TestResult>("SELECT * from test_results;")
       .then((response:TestResult[]) => {console.log(response); this.results = response;});
     }
-    // allFlaky(){
-    //   this.db.get("SELECT scenario_id,  scenario_name, COUNT(*) AS flaky_count, GROUP_CONCAT(DISTINCT date ORDER BY date) AS flaky_dates FROM  test_results WHERE flaky = 1 GROUP BY scenario_id, scenario_name;")
-    //   .then((response:unknown) => this.result = response);
-    // }
 
     change(){
       this.value = !this.value;

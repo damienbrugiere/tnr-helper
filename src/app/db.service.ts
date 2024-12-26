@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Database from '@tauri-apps/plugin-sql';
+import Database, { QueryResult } from '@tauri-apps/plugin-sql';
 import { TestResult } from './models/test-result';
 
 @Injectable({
@@ -64,17 +64,23 @@ export class DbService {
   private snakeToCamel(snake: string): string {
     return snake.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
   }
-  async create(testResult: TestResult) {
+  async create<T>(obj: T, tableName: string): Promise<QueryResult | undefined>{
     // Assurez-vous que la base est initialisée avant d'ajouter un résultat
     if (!this.isInitialized) {
       await this.init();
     }
-    const { query, values } = this.generateInsertQuery('test_results', testResult);
+    const { query, values } = this.generateInsertQuery(tableName, obj);
     console.log(query, values);
-    const result = await this.db?.execute(query, values);
-    console.log(result);
+    return await this.db?.execute(query, values);
   }
 
+  async update<T>(obj: T, tableName: string){
+    const { query, values } = this.generateUpdateQuery(tableName, obj);
+    const result = await this.db?.execute(query, values);
+    console.log(result);
+    return result;
+  }
+  
   generateInsertQuery(tableName: string, obj: any) {
     const keys = Object.keys(obj)
       .filter((o) => o !== 'id') // Exclure la clé "id"
@@ -96,4 +102,31 @@ export class DbService {
 
     return { query, values };
   }
+
+  generateUpdateQuery(tableName: string, obj: any) {
+    // Formater l'objet : convertir les dates en timestamps si nécessaire
+    const formattedObject: Record<string, any> = {
+        ...obj,
+        date: obj.date instanceof Date ? obj.date.getTime() : obj.date,
+    };
+
+    // Filtrer les champs qui ne sont pas "id" et qui ne sont pas `undefined`
+    const validKeys = Object.keys(formattedObject)
+        .filter((key) => key !== 'id' && formattedObject[key] !== undefined);
+
+    // Mapper les clés vers leur format SQL (snake_case) et construire la liste des valeurs
+    const updateKeys = validKeys.map((key) =>
+        key.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`)
+    );
+    const values = validKeys.map((key) => formattedObject[key]);
+    values.push(obj.id); // Ajouter l'ID à la fin pour la clause WHERE
+
+    // Construire la partie SET de la requête
+    const update = updateKeys.map((key, index) => `${key} = $${index + 1}`).join(", ");
+    const query = `UPDATE ${tableName} SET ${update} WHERE id = $${updateKeys.length + 1};`;
+
+    console.log(values, query);
+    return { query, values };
+}
+
 }

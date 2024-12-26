@@ -11,4 +11,5 @@ export interface TestResult {
     expected?: string;
     result?: string;
     date: Date
+    campaignId: number
 }

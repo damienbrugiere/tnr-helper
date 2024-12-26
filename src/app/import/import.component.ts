@@ -2,23 +2,38 @@ import { Component } from '@angular/core';
 import { DbService } from '../db.service';
 import { TestResult } from '../models/test-result';
 import { CommonModule, JsonPipe } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Campaign } from '../models/campaign';
+import { UiListComponent } from '../utils/ui-list/ui-list.component';
 
 @Component({
   selector: 'app-import',
   standalone: true,
-  imports: [JsonPipe, CommonModule],
+  imports: [JsonPipe, CommonModule, RouterModule, UiListComponent],
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.css'],
 })
 export class ImportComponent {
-  private startDate!: number;
+  public campaign!: Campaign;
   public elements: TestResult[] | undefined;
 
-  constructor(private db: DbService) {}
+  constructor(private db: DbService, private route: ActivatedRoute) {}
 
   // Méthode pour récupérer les données après initialisation
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      this.db.get<Campaign>("SELECT * FROM campaign where id = $1;", id).then((response) => { 
+        this.campaign = response[0];
+        this.init();
+      });
+    });
+  }
 
+  init(){
+    this.db.get<TestResult>("SELECT * FROM test_results where campaign_id = $1;", this.campaign.id).then((testResults) => {
+      this.elements = testResults;
+    }); 
   }
 
   // Méthode pour basculer l'état de collapse d'un élément
@@ -30,14 +45,7 @@ export class ImportComponent {
     console.log('Génération issue pour :', step);
   }
 
-  init(){
-    this.db.get('SELECT * FROM test_results WHERE date > $1', this.startDate).then((response: unknown) => {
-      this.elements = response as TestResult[];
-    });
-  }
-
   onFileSelected(event: Event): void {
-    this.startDate = new Date().getTime();
     const input = event.target as HTMLInputElement;
   
     if (!input.files || input.files.length === 0) {
@@ -88,20 +96,19 @@ export class ImportComponent {
               scenarioName: element.name,
               errorMessage,
               uri,
-              flaky: true,
+              flaky: false,
+              campaignId: this.campaign.id!
             };
   
             // Attendez que l'insertion se termine avant de continuer
-            await this.db.create(testResult);
+            await this.db.create(testResult, "test_results");
           }
         });
   
         // Attendez que toutes les promesses de création se résolvent
         await Promise.all(promises);
-  
-        console.log('Traitement du fichier terminé');
-        
         this.init();
+        console.log('Traitement du fichier terminé');
       } catch (error) {
         console.error('Erreur lors de l’analyse du fichier JSON :', error);
       }

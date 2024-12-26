@@ -1,13 +1,16 @@
 <main class="container">
+    <a routerLink="/">retour à home</a>
+    <span *ngIf="campaign"> {{campaign | json}}</span>
     <input 
+      *ngIf="elements?.length === 0"
       type="file" 
       accept=".json" 
       (change)="onFileSelected($event)" 
       class="file-input" />
     <div *ngIf="this.elements">
-        <ul>
-            <li *ngFor="let element of elements"> {{element.id}}</li>
-        </ul>
+            <ui-list [results]="elements">
+
+            </ui-list>
     </div>
 
   </main>

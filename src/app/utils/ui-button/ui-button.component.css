@@ -87,7 +87,7 @@
   .pushable:focus:not(:focus-visible) {
     outline: none;
   }
-  .bug{
+  .bug, .link{
     background-image: url("/assets/icons/gitlab-brands-solid.svg");
     mask: url("/assets/icons/gitlab-brands-solid.svg") no-repeat center;
     -webkit-mask: url("/assets/icons/gitlab-brands-solid.svg") no-repeat center;

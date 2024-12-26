@@ -14,8 +14,8 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
     trigger('staggerAnimation', [
       transition(':enter', [
         query('.item', [
-          style({ opacity: 0, transform: 'translateY(-20px)' }),
-          stagger(40, [
+          style({ opacity: 0, transform: 'translateX(300px)' }),
+          stagger(50, [
             animate('200ms 200ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
           ])
         ], { optional: true })

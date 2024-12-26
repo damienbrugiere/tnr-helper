@@ -10,7 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class UiButtonComponent {
 
   @Input()
-  type: "bug"|"flaky" ="bug";
+  type: "bug"|"flaky"|"link" ="bug";
   @Input()
   label: string ="";
   @Output()

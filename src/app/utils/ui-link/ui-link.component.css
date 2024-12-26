@@ -1,0 +1,10 @@
+.link {
+    background:hsl(248, 53%, 58%);
+}
+
+.background-link{
+    background-color: white;
+}
+a {
+    all: unset;
+}
