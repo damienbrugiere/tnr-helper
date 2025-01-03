@@ -1,6 +1,12 @@
 .container {
     padding: 20px;
   }
+  .center{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.center, h1 { margin:0}
   
   .file-input {
     margin-bottom: 20px;

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { UiTitleCollapseComponent } from '../ui-title-collapse/ui-title-collapse.component';
 import { TestResult } from '../../models/test-result';
 import { CommonModule } from '@angular/common';
@@ -25,6 +25,7 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 })
 export class UiListComponent {
 
+  @ContentChild(TemplateRef) template!: TemplateRef<any>;
   @Input()
-  results: TestResult[] | undefined;
+  results: any[] | undefined;
 }

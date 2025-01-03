@@ -19,7 +19,7 @@ export class DashboardComponent {
     }
     all(){
       this.db.get<TestResult>("SELECT * from test_results;")
-      .then((response:TestResult[]) => {console.log(response); this.results = response;});
+      .then((response:TestResult[]) =>  this.results = response);
     }
 
     change(){

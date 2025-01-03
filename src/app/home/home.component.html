@@ -1,8 +1,17 @@
 <main>
-    <nav> 
+    <nav class="center"> 
+        <h1>Campagnes de tests</h1>
         <ui-button label="Nouvelle Campagne" (click)="newCampaign()">
 
         </ui-button>
     </nav>
+  
 
+    <ui-list [results]="campaigns">
+        <ng-template let-result>
+          <ui-campaign [result]="result" (click)="open(result.id)">
+            
+          </ui-campaign>
+        </ng-template>
+    </ui-list>
 </main>

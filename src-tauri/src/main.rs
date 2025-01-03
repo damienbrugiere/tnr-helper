@@ -32,6 +32,9 @@ fn main() {
                 CREATE TABLE campaign (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
+                    failed_count INTEGER,
+                    success_count INTEGER,
+                    total_count INTEGER,
                     date INTEGER NOT NULL
                 );
 
@@ -42,8 +45,8 @@ fn main() {
                     error_message TEXT,
                     uri TEXT NOT NULL,
                     flaky INTEGER NOT NULL,
-                    gitlab_issue_id TEXT,
-                    gitlab_project_id TEXT,
+                    gitlab_issue_id INTEGER,
+                    gitlab_project_id INTEGER,
                     video TEXT,
                     expected TEXT,
                     result TEXT,
@@ -71,10 +74,11 @@ fn main() {
     ];
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
         .plugin(
             tauri_plugin_sql::Builder::default()
                 .add_migrations("sqlite:mydatabase.db", migrations)
-                .build()
+                .build(),
         )
         .run(tauri::generate_context!())
         .expect("error while running Tauri application");

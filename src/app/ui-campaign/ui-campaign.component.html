@@ -1,0 +1,15 @@
+<div class="element" *ngIf="result">
+    <ui-checkbox [(ngModel)]="checked" [label]="result.name">
+
+    </ui-checkbox>
+    <div style="height: 60px; width: 60px;">
+        <ui-chart
+        *ngIf="result"
+        [success]="result.successCount!"
+        [failed]="result.failedCount!"
+    >
+
+    </ui-chart>
+    </div>
+
+</div>

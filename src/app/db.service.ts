@@ -70,14 +70,12 @@ export class DbService {
       await this.init();
     }
     const { query, values } = this.generateInsertQuery(tableName, obj);
-    console.log(query, values);
     return await this.db?.execute(query, values);
   }
 
   async update<T>(obj: T, tableName: string){
     const { query, values } = this.generateUpdateQuery(tableName, obj);
     const result = await this.db?.execute(query, values);
-    console.log(result);
     return result;
   }
   
@@ -124,8 +122,6 @@ export class DbService {
     // Construire la partie SET de la requête
     const update = updateKeys.map((key, index) => `${key} = $${index + 1}`).join(", ");
     const query = `UPDATE ${tableName} SET ${update} WHERE id = $${updateKeys.length + 1};`;
-
-    console.log(values, query);
     return { query, values };
 }
 

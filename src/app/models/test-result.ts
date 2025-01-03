@@ -5,7 +5,7 @@ export interface TestResult {
     errorMessage: string;
     uri: string;
     flaky: boolean;
-    gitlabIssueId?: string;
+    gitlabIssueId?: number;
     gitlabProjectId?: string;
     video?:string;
     expected?: string;

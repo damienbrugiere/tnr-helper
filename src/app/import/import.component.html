@@ -1,6 +1,9 @@
 <main class="container">
-    <a routerLink="/">retour à home</a>
-    <span *ngIf="campaign"> {{campaign | json}}</span>
+    <div class="center">
+      <h1 *ngIf="campaign">{{campaign.name}}</h1>
+      <ui-button label="Génération du guide d'installation" (click)="generate()"></ui-button>
+    </div>
+
     <input 
       *ngIf="elements?.length === 0"
       type="file" 
@@ -9,7 +12,9 @@
       class="file-input" />
     <div *ngIf="this.elements">
             <ui-list [results]="elements">
-
+              <ng-template let-result>
+                <ui-title-collapse [result]="result"></ui-title-collapse>
+              </ng-template>
             </ui-list>
     </div>
 

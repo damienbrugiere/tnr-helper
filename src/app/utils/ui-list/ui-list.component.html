@@ -2,7 +2,7 @@
 <div   [@staggerAnimation]>
     <div *ngFor="let result of results">
         <div class="item">
-            <ui-title-collapse [result]="result"></ui-title-collapse>
-            </div>
+            <ng-container *ngTemplateOutlet="template; context: {$implicit: result}"></ng-container>
+        </div>
     </div>
 </div>
