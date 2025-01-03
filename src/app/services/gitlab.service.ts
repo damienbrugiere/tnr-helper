@@ -7,15 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GitlabService {
-  //DESKTOP
   private issuesApi = new Issues({
-    token: '',
+    token: 'glpat-weCSsMue8KSJqf77-cRF',
   });
 
   private baseUrl = 'https://gitlab.com/api/v4';
-  
-  //DESKTOP
-  private token = '';
+  private token = 'glpat-weCSsMue8KSJqf77-cRF';
 
   constructor(private http: HttpClient) {}
 
