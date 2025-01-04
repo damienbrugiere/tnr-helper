@@ -1,0 +1,15 @@
+<main>
+    <nav class="center"> 
+        <h1>Templates</h1>
+        <ui-button label="Nouveau template" (click)="newTemplate()">
+
+        </ui-button>
+    </nav>
+    <ui-list [results]="templates">
+        <ng-template let-result>
+            <div class="element" *ngIf="result" (click)="update(result.id)">
+               <div style="font-size: x-large;">{{result.name}}</div> 
+            </div>
+        </ng-template>
+    </ui-list>
+</main>

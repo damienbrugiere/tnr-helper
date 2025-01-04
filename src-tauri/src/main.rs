@@ -71,6 +71,23 @@ fn main() {
             ",
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 3,
+            description: "create_issue_template",
+            sql: "
+                CREATE TABLE issue_template (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT,
+                    title TEXT,
+                    flaky INTEGER,
+                    description TEXT,
+                    project_id INTEGER
+                );
+
+                INSERT INTO issue_template(flaky,name) VALUES (1,'Issue Flaky'),(0, 'Issue bug projet Pilot') ;
+            ",
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()

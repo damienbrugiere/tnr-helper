@@ -70,11 +70,14 @@ export class DbService {
       await this.init();
     }
     const { query, values } = this.generateInsertQuery(tableName, obj);
+    console.log(query, values);
     return await this.db?.execute(query, values);
   }
 
   async update<T>(obj: T, tableName: string){
     const { query, values } = this.generateUpdateQuery(tableName, obj);
+    
+    console.log(query, values);
     const result = await this.db?.execute(query, values);
     return result;
   }
@@ -106,6 +109,7 @@ export class DbService {
     const formattedObject: Record<string, any> = {
         ...obj,
         date: obj.date instanceof Date ? obj.date.getTime() : obj.date,
+        flaky: typeof obj.flaky === 'boolean' ? (obj.flaky ? 1 : 0) : obj.flaky
     };
 
     // Filtrer les champs qui ne sont pas "id" et qui ne sont pas `undefined`
@@ -116,6 +120,7 @@ export class DbService {
     const updateKeys = validKeys.map((key) =>
         key.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`)
     );
+
     const values = validKeys.map((key) => formattedObject[key]);
     values.push(obj.id); // Ajouter l'ID à la fin pour la clause WHERE
 

@@ -1,6 +1,9 @@
 .container {
     padding: 20px;
   }
+  :host {
+    height: 100%
+  }
   .center{
     display: flex;
     justify-content: space-between;

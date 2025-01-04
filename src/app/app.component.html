@@ -1,4 +1,5 @@
 
+
 <mat-toolbar color="primary" class="example-toolbar">
     <button mat-icon-button *ngIf="menu.length > 0" (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
     <h1 routerLink='' style="cursor: pointer;" class="example-app-name">TNR</h1>
@@ -16,7 +17,7 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <!-- Cabeceras del submenu -->
-                    <div fxLayout="row" fxLayoutAlign="space-between center" > 
+                    <div fxLayout="row" fxLayoutAlign="space-between center" class="center"> 
                       <mat-icon>{{item.iconName}}</mat-icon>
                       {{item.displayName}}
                     </div>
@@ -25,7 +26,7 @@
                 <span *ngFor="let child of item.children">
                   <mat-list-item [routerLink]="child.route">
                     <!-- Entradas de cada submenú  -->
-                    <div fxLayout="row" fxLayoutAlign="space-between center" > 
+                    <div fxLayout="row" fxLayoutAlign="space-between center" class="center"> 
                       <mat-icon>{{child.iconName}}</mat-icon>
                       {{child.displayName}}
                     </div>
@@ -37,7 +38,7 @@
           <span *ngIf="!item.children || item.children.length === 0">
             <mat-list-item [routerLink]="item.route">
               <!-- Entradas principales -->
-              <div fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayoutAlign="space-between center" class="center">
                 <mat-icon>{{item.iconName}}</mat-icon>
                 {{item.displayName}}
               </div>
@@ -47,7 +48,7 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content>
+    <mat-sidenav-content >
         <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

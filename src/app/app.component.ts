@@ -19,7 +19,21 @@ import {MediaMatcher} from '@angular/cdk/layout';
 export class AppComponent{
 
   menu: NavItem [] = [
-
+    {
+      displayName: "Acceuil",
+      iconName: "home",
+      route: "",
+    },
+    {
+      displayName: "Templates",
+      iconName: "note_add",
+      route: "settings/issues",
+    },
+    {
+      displayName: "Paramètres",
+      iconName: "settings",
+      route: "settings/issues",
+    }
   ];
 mobileQuery!: MediaQueryList;
 fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);

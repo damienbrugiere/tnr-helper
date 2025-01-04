@@ -1,0 +1,32 @@
+
+<main class="container">
+    <div class="center">
+        <h1>Template d'issue</h1>
+        <ui-button label="Sauvegarder" (click)="onSubmit()">
+        </ui-button>
+    </div>
+</main>
+{{issueTemplate | json}}
+<div class="form-container">
+    <mat-form-field class="form-field">
+        <mat-label>Nom</mat-label>
+        <input type="text" matInput [(ngModel)]="issueTemplate.name" />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+        <mat-label>Project ID</mat-label>
+        <input type="number" matInput  [(ngModel)]="issueTemplate.projectId" />
+    </mat-form-field>
+
+        
+    <mat-checkbox  [(ngModel)]="issueTemplate.flaky">Flaky</mat-checkbox>
+    <mat-form-field class="form-field">
+        <mat-label>Titre</mat-label>
+        <input type="text" matInput  [(ngModel)]="issueTemplate.title"/>
+    </mat-form-field>
+
+    <mat-form-field class="form-field textarea-field">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="15"  [(ngModel)]="issueTemplate.description"></textarea>
+    </mat-form-field>
+</div>
