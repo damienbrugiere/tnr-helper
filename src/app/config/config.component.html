@@ -1,0 +1,19 @@
+
+<main class="container">
+    <div class="center">
+        <h1>Paramétrage</h1>
+        <ui-button label="Sauvegarder" (click)="onSubmit()">
+        </ui-button>
+    </div>
+</main>
+<div class="form-container">
+    <mat-form-field class="form-field">
+        <mat-label>Base Url de gitlab</mat-label>
+        <input type="text" matInput [(ngModel)]="config.baseUrl" />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+        <mat-label>API key</mat-label>
+        <input type="text" matInput  [(ngModel)]="config.apiKey" />
+    </mat-form-field>
+</div>

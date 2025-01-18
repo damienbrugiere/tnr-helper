@@ -6,7 +6,6 @@
         </ui-button>
     </div>
 </main>
-{{issueTemplate | json}}
 <div class="form-container">
     <mat-form-field class="form-field">
         <mat-label>Nom</mat-label>
@@ -27,6 +26,6 @@
 
     <mat-form-field class="form-field textarea-field">
         <mat-label>Description</mat-label>
-        <textarea matInput rows="15"  [(ngModel)]="issueTemplate.description"></textarea>
+        <textarea matInput rows="35"  [(ngModel)]="issueTemplate.description"></textarea>
     </mat-form-field>
 </div>

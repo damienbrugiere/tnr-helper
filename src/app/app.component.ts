@@ -32,7 +32,7 @@ export class AppComponent{
     {
       displayName: "Paramètres",
       iconName: "settings",
-      route: "settings/issues",
+      route: "settings",
     }
   ];
 mobileQuery!: MediaQueryList;
@@ -48,6 +48,4 @@ constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
 ngOnDestroy(): void {
   this.mobileQuery.removeListener(this._mobileQueryListener);
 }
-
-shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
 }

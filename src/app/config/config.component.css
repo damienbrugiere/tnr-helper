@@ -1,0 +1,35 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .form-field {
+    width: 80%; /* Ajustez cette valeur pour les inputs standards */
+    margin: 10px 0;
+  }
+  
+  .textarea-field {
+    width: 80%; /* La largeur spécifique pour le textarea */
+    height: 80%;
+  }
+  
+  textarea {
+    min-height: 150px; /* Facultatif : définissez une hauteur par défaut pour le textarea */
+  }
+
+  .center{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .center, h1 { margin:0}
+  .container {
+    padding: 20px;
+  }
+  :host {
+    height: 100%
+  }

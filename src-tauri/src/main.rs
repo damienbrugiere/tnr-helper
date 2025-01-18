@@ -87,6 +87,20 @@ fn main() {
                 INSERT INTO issue_template(flaky,name) VALUES (1,'Issue Flaky'),(0, 'Issue bug projet Pilot') ;
             ",
             kind: MigrationKind::Up,
+        },       
+         Migration {
+            version: 4,
+            description: "create_config",
+            sql: "
+                CREATE TABLE config (
+                    id INTEGER PRIMARY KEY,
+                    base_url TEXT,
+                    api_key TEXT
+                );
+
+                INSERT INTO config(id, base_url, api_key) VALUES (1,'https://gitlab.com/api/v4', 'glpat-weCSsMue8KSJqf77-cRF') ;
+            ",
+            kind: MigrationKind::Up,
         },
     ];
 

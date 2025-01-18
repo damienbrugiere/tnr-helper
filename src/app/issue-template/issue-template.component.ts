@@ -17,7 +17,7 @@ import { JsonPipe } from '@angular/common';
   templateUrl: './issue-template.component.html',
   styleUrl: './issue-template.component.css',
   providers:[
-      {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}]
+      {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'outline'}}]
 })
 export class IssueTemplateComponent implements OnInit {
   issueTemplate!: IssueTemplate;
